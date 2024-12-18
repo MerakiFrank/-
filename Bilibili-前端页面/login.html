@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <title>登录</title>
+</head>
+<body>
+<!-- 背景图片 -->
+<div class="bg-img"><img src="images/loginBack.png"></div>
+<!-- 登录框容器 -->
+<div class="container" id="login">
+      <div class="login">
+        <h1>哔哩哔哩</h1>
+        <h2>登录</h2>
+        <!-- 错误信息提示 -->
+        <div style="color: red" id="message"></div>
+        <form>
+          <!-- 用户名输入框 -->
+          <div class="form-group">
+            <label><b>用户名：</b></label>
+            <input type="text" class="form-control" id="Name" name="Name" value=""
+                   maxlength="12" required placeholder="Username">
+
+          </div>
+          <!-- 密码输入框 -->
+          <div class="form-group">
+            <label><b>&emsp;密码：</b></label>
+            <input type="password" class="form-control" id="Password" name="Password"
+                   value="" maxlength="20" required placeholder="Password">
+          </div>
+
+          <!-- 记住我选项 -->
+          <div class="form-check">
+
+            <label class="switch">
+              <input type="checkbox" id="remember">
+              <span class="slider round"></span>
+            </label>
+            <label class="form-check-label">记住密码？</label>
+
+            <!-- 忘记密码链接 -->
+            <label class="forgot-password"><a href="#">忘记密码？</a></label>
+
+          </div>
+
+          <br>
+          <!-- 登录按钮 -->
+          <input type="button" value="Sign in" class="btn btn-lg btn-block btn-success"
+                 onclick="login()">
+        </form>
+
+          <!-- 版权信息 -->
+          <div style="color: gray">Copyright &copy; 2024.LDXY.22计科王华.2022051123</div>
+      </div>
+</div>
+<script>
+  // 从本地存储获取用户名和密码
+  var sName=localStorage.getItem("sName");
+  var sPassword=localStorage.getItem("sPassword");
+  // 如果本地存储中有用户名，将其填入用户名输入框
+  if(sName){
+    document.getElementById("Name").value=sName;
+  }
+  // 如果本地存储中有密码，将其填入密码输入框
+  if(sPassword){
+    document.getElementById("Password").value=sPassword;
+  }
+  // 登录函数
+  function login(){
+    // 获取用户名和密码输入框的值
+    var name=document.getElementById("Name").value;
+    var password=document.getElementById("Password").value;
+    // 获取错误信息提示框
+    var message=document.getElementById("message");
+    // 验证密码
+    if(password=="123"){
+      // 将用户名存储在会话存储中
+      sessionStorage.setItem("name",name);
+      // 将用户名存储在本地存储中
+      localStorage.setItem("sName",name);
+      // 如果选中了记住我，将密码存储在本地存储中
+      if(document.getElementById("remember").checked){
+        localStorage.setItem("sPassword",password);
+      }else{
+        // 否则，从本地存储中移除密码
+        localStorage.removeItem("sPassword");
+      }
+      // 显示成功信息
+      message.innerHTML="<div style=\"color:lightgreen\">登陆成功！</div>";
+      // 1秒后跳转到首页
+      setTimeout(function (){window.location.href="index.html";},1000);
+    }else {
+      // 显示错误信息
+      message.innerHTML="<div style=\"color:red\">用户名或密码输入错误！用户：ROOT 密码：123</div>";
+      
+    }
+  }
+</script>
+
+ <!-- 特效 -->
+  <script type="text/javascript"src="https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/static/js/sakura-less.js"></script>
+  <!-- 特效 -->
+  <script type="text/javascript"src="https://cdn.jsdelivr.net/gh/Fuukei/Public_Repository@latest/static/js/sakura-less.js"></script>
+  
+</body>
+</html>
